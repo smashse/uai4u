@@ -1,6 +1,6 @@
 #! /bin/bash
 # *Ubuntu, the distro for human begins
-# Author: uai4u https://github.com/smashse/uai4u
+# Author: Anderson Gama(smashse) uai4u https://github.com/smashse/uai4u
 # License: GPL v3
 
 #adiciona ao sources o release do ubuntu utilizado
@@ -59,7 +59,7 @@ read gui
 
 case $gui in
    ubuntu) ubuntu ;;
-   kubuntu) kubuntu ;; 
+   kubuntu) kubuntu ;;
    *) clear ; echo "Digite [ubuntu] se usa gnome/unity ou [kubuntu] se usa kde!" ; sleep 3 ; clear ; gui ;;
 esac
 
