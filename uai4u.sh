@@ -1,6 +1,6 @@
 #! /bin/bash
 # *Ubuntu, the distro for human begins
-# Author: uai4u http://code.google.com/p/uai4u/
+# Author: uai4u https://github.com/smashse/uai4u
 # License: GPL v3
 
 #adiciona ao sources o release do ubuntu utilizado
@@ -37,7 +37,7 @@ echo "deb http://archive.canonical.com/ubuntu $release partner" >> "/etc/apt/sou
 #atualiza as chaves gpg
 #agradecimentos a Dominic Evans (https://twitter.com/oldmanuk)
 echo "#Atualizando as chaves gpg"
-sudo wget http://goo.gl/7defK -O launchpad-update && sudo sh launchpad-update
+sudo wget https://github.com/smashse/uai4u/releases/download/v1.0/launchpad-update -O launchpad-update && sudo sh launchpad-update
 
 #adicionar medibuntu
 echo "#Adicionando chave medibuntu"
