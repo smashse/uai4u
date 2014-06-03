@@ -37,7 +37,7 @@ echo "deb http://archive.canonical.com/ubuntu $release partner" >> "/etc/apt/sou
 #atualiza as chaves gpg
 #agradecimentos a Dominic Evans (https://twitter.com/oldmanuk)
 echo "#Atualizando as chaves gpg"
-sudo wget https://github.com/smashse/uai4u/releases/download/v1.0/launchpad-update -O launchpad-update && sudo sh launchpad-update
+sudo wget https://github.com/smashse/uai4u/releases/download/v1.1/launchpad-update -O launchpad-update && sudo sh launchpad-update
 
 #adicionar medibuntu
 echo "#Adicionando chave medibuntu"
