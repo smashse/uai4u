@@ -1,12 +1,11 @@
 #! /bin/bash
-# *Ubuntu, the distro for human begins
-# Author: Anderson Gama(smashse) uai4u https://github.com/smashse/uai4u
-# License: GPL v3
+#  *Ubuntu, the distro for human begins
+#  Author: uai4u https://github.com/smashse/uai4u
+#  License: GPL v3
 
-#adiciona ao sources o release do ubuntu utilizado
+#adiciona ao sources o release do *ubuntu utilizado
 clear
 echo "Qual o release do ubuntu utilizado?"
-echo "Digite trusty para 14.04, saucy para 13.10, raring para o 13.04, quantal para 12.10 e precise para 12.04"
 echo -n "Qual a opcao desejada? "
 read release
 clear
@@ -21,46 +20,33 @@ echo "#Adicionando repositorios ao novo sources.list"
 touch "/etc/apt/sources.list"
 
 echo "#ubuntu" >> "/etc/apt/sources.list"
-echo "deb http://archive.ubuntu.com/ubuntu $release main restricted universe multiverse" >> "/etc/apt/sources.list"
-echo "deb http://archive.ubuntu.com/ubuntu $release-updates main restricted universe multiverse" >> "/etc/apt/sources.list"
-echo "deb http://archive.ubuntu.com/ubuntu $release-backports main restricted universe multiverse" >> "/etc/apt/sources.list"
-echo "deb http://archive.ubuntu.com/ubuntu $release-proposed restricted main multiverse  universe" >> "/etc/apt/sources.list"
+echo "deb http://br.archive.ubuntu.com/ubuntu $release main restricted universe multiverse" >> "/etc/apt/sources.list"
+echo "deb http://br.archive.ubuntu.com/ubuntu $release-updates main restricted universe multiverse" >> "/etc/apt/sources.list"
+echo "deb http://br.archive.ubuntu.com/ubuntu $release-backports main restricted universe multiverse" >> "/etc/apt/sources.list"
+echo "deb http://br.archive.ubuntu.com/ubuntu $release-proposed main restricted universe multiverse" >> "/etc/apt/sources.list"
 echo "#security" >> "/etc/apt/sources.list"
 echo "deb http://security.ubuntu.com/ubuntu $release-security main restricted universe multiverse" >> "/etc/apt/sources.list"
-echo "#extras" >> "/etc/apt/sources.list"
-echo "deb http://extras.ubuntu.com/ubuntu $release main" >> "/etc/apt/sources.list"
-echo "#medibuntu" >> "/etc/apt/sources.list"
-echo "#deb http://packages.medibuntu.org $release free non-free" >> "/etc/apt/sources.list"
 echo "#partner" >> "/etc/apt/sources.list"
 echo "deb http://archive.canonical.com/ubuntu $release partner" >> "/etc/apt/sources.list"
 
-#atualiza as chaves gpg
-#agradecimentos a Dominic Evans (https://twitter.com/oldmanuk)
-echo "#Atualizando as chaves gpg"
-sudo wget https://github.com/smashse/uai4u/releases/download/v1.1/launchpad-update -O launchpad-update && sudo sh launchpad-update
-
-#adicionar medibuntu
-echo "#Adicionando chave medibuntu"
-sudo apt-get update --fix-missing
-sudo apt-get install medibuntu-keyring -y --force-yes
-sudo apt-get update --fix-missing
-
 #executando o upgrade
 echo "#Executando o upgrade"
+sudo apt-get update --fix-missing
 sudo apt-get dist-upgrade -y --force-yes
 clear
 
 #instala pacotes para audio e video para ubuntu ou kubuntu
 gui() {
-echo "Utilizando Ubuntu ou Kubuntu?"
-echo "Digite ubuntu ou kubuntu!"
+echo "Utilizando Ubuntu, Kubuntu ou Xubuntu?"
+echo "Digite ubuntu, kubuntu ou xubuntu!"
 echo -n "Qual a opcao desejada? "
 read gui
 
 case $gui in
    ubuntu) ubuntu ;;
    kubuntu) kubuntu ;;
-   *) clear ; echo "Digite [ubuntu] se usa gnome/unity ou [kubuntu] se usa kde!" ; sleep 3 ; clear ; gui ;;
+   xubuntu) xubuntu ;;
+   *) clear ; echo "Digite [ubuntu] se usa gnome/unitym [kubuntu] se usa kde ou [xubuntu] se usa xfce!" ; sleep 3 ; clear ; gui ;;
 esac
 
 }
@@ -75,45 +61,49 @@ kubuntu() {
    echo "#ppa-kubuntu" >> "/etc/apt/sources.list"
    echo "deb http://ppa.launchpad.net/kubuntu-ppa/ppa/ubuntu $release main" >> "/etc/apt/sources.list"
    echo "deb http://ppa.launchpad.net/kubuntu-ppa/backports/ubuntu $release main" >> "/etc/apt/sources.list"
-   sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8AC93F7A
+   sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 8AC93F7A
    sudo apt-get update --fix-missing
    sudo apt-get dist-upgrade -y --force-yes
    sudo apt-get install kubuntu-restricted-extras -y --force-yes
+}
+
+xubuntu() {
+   echo "#Instalando plugins e codecs de audio e video para sua escolha!"
+   sudo apt-get install xubuntu-restricted-extras -y --force-yes
 }
 
 gui
 
 clear
 
-#instala suporte ao unity (precise)
-unity() {
-echo "Deseja suporte ao Unity? (Precise)"
+#instala suporte a temas
+temas() {
+echo "Deseja instalar temas?"
 echo "Digite sim ou nao!"
 echo -n "Qual a opcao desejada? "
-read unity
+read temas
 
-case $unity in
+case $temas in
    sim) Sim ;;
    nao) Nao ;;
-   *) clear ; echo "Digite [sim] se deseja instalar o unity ou [nao] para finalizar o processo!" ; sleep 3 ; clear ; unity ;;
+   *) clear ; echo "Digite [sim] se deseja instalar os temas ou [nao] para finalizar o processo!" ; sleep 3 ; clear ; temas ;;
 esac
 
 }
 
 Sim() {
-   echo "#unity" >> "/etc/apt/sources.list"
-   echo "deb http://ppa.launchpad.net/unity-team/ppa/ubuntu $release main" >> "/etc/apt/sources.list"
-   sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1236960C
+   sudo add-apt-repository ppa:numix/ppa
+   sudo add-apt-repository ppa:fossfreedom/budgie-desktop
+   sudo add-apt-repository ppa:budgie-remix/ppa
    sudo apt-get update --fix-missing
-   sudo apt-get dist-upgrade -y --force-yes
-   sudo apt-get install unity -y --force-yes
+   sudo apt-get install numix-icon-theme-circle arc-theme -y --force-yes
 }
 
 Nao() {
-   echo "Unity nao instalado!"
+   echo "Temas nao instalados!"
 }
 
-unity
+temas
 
 clear
 
